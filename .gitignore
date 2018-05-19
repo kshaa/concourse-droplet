@@ -1,0 +1,3 @@
+# Contains credentials
+/variable.tf
+/id_rsa.pub
