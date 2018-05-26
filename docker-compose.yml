@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  concourse-db:
+    image: postgres
+    env_file:
+    - secrets.env
+    environment:
+    - PGDATA=/database
+
+  concourse-web:
+    image: concourse/concourse
+    command: web
+    links: [concourse-db]
+    depends_on: [concourse-db]
+    ports: ["80:80"]
+    volumes: ["./keys/web:/concourse-keys"]
+    env_file:
+    - secrets.env
+    environment:
+    - CONCOURSE_POSTGRES_HOST=concourse-db
+
+  concourse-worker:
+    image: concourse/concourse
+    command: worker
+    privileged: true
+    links: [concourse-web]
+    depends_on: [concourse-web]
+    volumes: ["./keys/worker:/concourse-keys"]
+    environment:
+    - CONCOURSE_TSA_HOST=concourse-web:2222
+    - CONCOURSE_GARDEN_NETWORK

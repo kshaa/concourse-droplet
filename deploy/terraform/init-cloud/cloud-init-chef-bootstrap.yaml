@@ -1,0 +1,29 @@
+#cloud-config
+
+write_files:
+  - path: /root/init-vm
+    permissions : '0755'
+    content: |
+      #!/usr/bin/env bash
+
+      # FYI - That #cloud-config is required for DigitalOcean
+      # It also accepts bash scripts or something
+
+      set -eux
+
+      if ! [ -e /var/deployment ]; then
+        ssh-keyscan github.com 2> /dev/null >> /etc/ssh/ssh_known_hosts
+        git config --system advice.detachedHead false
+        mkdir -p /var/deployment
+      fi
+
+      cd /var/deployment
+      git rev-parse --is-inside-work-tree || git clone ${source} .
+
+      cd deploy/chef
+      HOME=/root ./init
+
+runcmd:
+  - /root/init-vm
+
+output: { all: "| tee -a /var/log/cloud-init-output.log" }

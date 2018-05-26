@@ -1,0 +1,5 @@
+source "https://supermarket.chef.io"
+
+cookbook 'app', '~> 0.1', path: "app-cookbook"
+cookbook 'docker_compose', '~> 0.1.1'
+cookbook 'filesystem', '~> 0.12.0'

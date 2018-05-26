@@ -1,0 +1,11 @@
+{
+  "name": "main",
+  "run_list": [
+    "recipe[app]"
+  ],
+  "default_attributes": {
+    "docker_compose": {
+      "release": "1.19.0"
+    }
+  }
+}

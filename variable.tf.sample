@@ -1,5 +1,0 @@
-# Token generated from Digital Ocean account
-variable "do_token" {
-  description = "Digital Ocean Token"
-  default     = "-"
-}

@@ -1,3 +1,8 @@
-# Contains credentials
-/variable.tf
-/id_rsa.pub
+# Terraform secrets
+/deploy/terraform/variable.tf
+/deploy/terraform/id_rsa.pub
+/deploy/terraform/.terraform
+
+# Concourse secrets
+/keys
+/secrets.env
