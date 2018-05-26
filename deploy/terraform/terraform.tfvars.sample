@@ -5,7 +5,7 @@ terragrunt = {
     config {
       profile        = "default"
       region         = "eu-west-2"
-      bucket         = "kshaa-concourse-tfstate"
+      bucket         = "your-concourse-tfstate"
       key            = "${path_relative_to_include()}/terraform.tfstate"
       encrypt        = true
       dynamodb_table = "concourse-terraform-lock"

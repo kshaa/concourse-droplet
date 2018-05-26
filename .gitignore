@@ -1,4 +1,5 @@
 # Terraform secrets
+/deploy/terraform/terraform.tfvars
 /deploy/terraform/variable.tf
 /deploy/terraform/id_rsa.pub
 /deploy/terraform/.terraform

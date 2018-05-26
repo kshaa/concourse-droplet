@@ -34,7 +34,7 @@ resource "digitalocean_volume" "concourse_volume" {
   description = "persistent volume (db, docker images, etc.)"
 
   lifecycle {
-//    prevent_destroy = true // Don't destroy persistent storage accidentally
+    prevent_destroy = true // Don't destroy persistent storage accidentally
   }
 }
 

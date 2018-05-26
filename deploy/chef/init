@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 install-chef() {
     apt update
-    apt install -y wget build-essential ruby2.3 ruby2.3-dev
+    apt install -y wget build-essential ruby ruby-dev autoconf libffi6 libffi-dev
 
     curl -sLO "https://omnitruck.chef.io/install.sh" | bash -s 13.6
     gem install --no-rdoc --no-ri berkshelf
