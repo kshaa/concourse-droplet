@@ -32,10 +32,6 @@ resource "digitalocean_volume" "concourse_volume" {
   name        = "persist" // This name is hardcoded in chef recipes
   size        = "${var.volume_size}"
   description = "persistent volume (db, docker images, etc.)"
-
-  lifecycle {
-    prevent_destroy = true // Don't destroy persistent storage accidentally
-  }
 }
 
 # Access key

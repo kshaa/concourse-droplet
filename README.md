@@ -4,26 +4,39 @@ Infrastructure, deployment and [Docker](https://www.docker.com/) to host [Concou
 This is basically a combination of the official [Concourse docker repo](https://github.com/concourse/concourse-docker/) and deployment code from [siers](https://github.com/siers) folkdance repo.
 
 # Quick-start 
-Configure the following:
+#### Configure the following:
 * [AWS CLI + credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 * Terraform
 * Terragrunt
 
-Update/Create the following files (samples provided):
+#### Update/Create the following files (samples provided):
 * `/secrets.env` (Concourse credentials and hostname)
 * `/deploy/terraform/variable.tf` (DigitalOcean token, etc)
 * `/deploy/terraform/terraform.tfvars` (Infrastructure current state locking)
 * `/deploy/terraform/id_rsa.pub` (Public SSH key to connect to droplet)
 
-Run:
+#### Run:
 1. `terragrunt apply`
 2. Fix errors because probably something failed the first time
 3. Repeat step 1. and 2. until errors are gone
 
-Use it:
+#### Use:
 
 Terraform returned an IP of the Concourse droplet, you now have a working
 Concourse server, read some [Concourse documentations](http://concoursetutorial.com/) and have fun.
+
+# After quick-starting
+#### Kill: (This will destroy all data)
+1. `terragrunt destroy`
+
+#### Hibernate: (This will destroy all but persistent storage)
+1. `./helper.sh hibernate`
+2. Hope it works
+3. If it didn't work, read helper.sh and fix it
+4. When you want it back run `terragrunt apply`
+5. Hope it works
+
+Note: _Hope is your friend in this repo_
 
 # Deployment flow
 ## Infrastructure
@@ -53,5 +66,4 @@ This is slightly verbose, because I didn't understand the chef part, so I'm docu
 # Todo
 * Set up a domain for the droplet
 * Set up the Concourse Postgresql container to use the persistent volume
-* Create Makefile w/ shortcut to automatically destroy all concourse infrastructure except the persistent volume
 * Move docker-ce from 'test' version to 'stable', when it's released in `/deploy/chef/app-cookbook/recipes/docker.rb`
