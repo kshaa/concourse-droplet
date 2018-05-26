@@ -19,4 +19,4 @@ git checkout -f origin/master
 
 berks vendor cookbooks
 
-chef-client -l debug -zr 'role[main]'
+chef-client -zr 'role[main]'

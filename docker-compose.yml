@@ -3,6 +3,8 @@ version: '3'
 services:
   concourse-db:
     image: postgres
+    volumes:
+    - /mnt/persist/pg-data:/var/lib/postgresql/data
     env_file:
     - secrets.env
     environment:
