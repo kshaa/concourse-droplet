@@ -1,6 +1,4 @@
 # Concourse on DigitalOcean
-
-# Not finished, read Todo below
 Infrastructure, deployment and [Docker](https://www.docker.com/) to host [Concourse](https://concourse-ci.org/) in a [DigitalOcean](https://www.digitalocean.com/) droplet.
 
 This is heavily inspired from the official [Concourse docker repo](https://github.com/concourse/concourse-docker/) and deployment code from [siers](https://github.com/siers) folkdance repo.
@@ -26,6 +24,11 @@ This is heavily inspired from the official [Concourse docker repo](https://githu
 
 Terraform returned an IP of the Concourse droplet, you now have a working
 Concourse server, read some [Concourse documentations](http://concoursetutorial.com/) and have fun.
+
+_Note: to connect to the concourse server use the following:_
+  
+`fly --target concourse_server login --concourse-url http://IP_OR_DOMAIN`  
+The important thing to note here is the `http://` in the URL, the url must match `CONCOURSE_EXTERNAL_URL` from `/deploy/terraform/secrets.env`
 
 # After quick-starting
 #### Kill: (This will destroy all data)
@@ -54,8 +57,6 @@ Includes:
 * [Cloud init](https://cloud-init.io/) scripts (to automatically deploy concourse when infrastructure is initialised) `/deploy/terraform/init-cloud`
 
 ## Deployment
-This is slightly verbose, because I didn't understand the chef part, so I'm documenting it for myself
-
 1. Cloud init script uploads this repo to the droplet and starts [Chef](https://www.chef.io/chef/) `/deploy/chef/init`
 2. Chef 'main' role is run on the droplet `/deploy/chef/roles/main.json`
 3. Chef 'main' role runs 'app' recipe on droplet `/deploy/chef/app-cookbook/recipes/app.rb`
@@ -66,10 +67,5 @@ This is slightly verbose, because I didn't understand the chef part, so I'm docu
 6. 'app' initialises Concourse containers `/docker-compose.yml` w/ credentials from `/secrets.env`
 
 # Todo
-* Set up a domain for the droplet
-* Set up the Concourse Postgresql container to use the persistent volume
+* Configure SSL
 * Move docker-ce from 'test' version to 'stable', when it's released in `/deploy/chef/app-cookbook/recipes/docker.rb` (low priority)
-* Document how I set up a domain (low priority)
-
-# Something's broken, aaaaa!
-Write a detailed issue in GitHub issues and hope for a response

@@ -21,6 +21,8 @@ services:
     environment:
     - CONCOURSE_POSTGRES_HOST=concourse-db
     - CONCOURSE_BIND_PORT=80
+    - CONCOURSE_EXTERNAL_URL=http://127.0.0.1:80
+    - CONCOURSE_PEER_URL=http://127.0.0.1:80
     env_file:
     - secrets.env
 
@@ -35,3 +37,5 @@ services:
     environment:
     - CONCOURSE_TSA_HOST=concourse-web:2222
     - CONCOURSE_GARDEN_NETWORK
+    - CONCOURSE_EXTERNAL_URL=http://127.0.0.1:80
+    - CONCOURSE_PEER_URL=http://127.0.0.1:80

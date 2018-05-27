@@ -36,19 +36,11 @@ reinitialise() {
 }
 
 hibernate() {
-    echo "Planning destruction of everything but persistent volume"
-    echo
-
-    # Destroy all resources except persistent storage
-    # https://github.com/hashicorp/terraform/issues/2253#issuecomment-318665739
-    terraform plan -destroy $(for r in `terraform state list | fgrep -v digitalocean_volume.concourse_volume` ; do printf "-target ${r} "; done) -out .destroy.plan
-
     echo "Destroying everything but the persistent volume"
     echo
 
-    terragrunt apply ".destroy.plan"
+    terragrunt destroy -target digitalocean_droplet.concourse_droplet -target digitalocean_floating_ip.concourse_droplet_ip
 }
-
 
 die() {
     terragrunt destroy
