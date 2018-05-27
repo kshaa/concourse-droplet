@@ -1,9 +1,6 @@
-# Terraform secrets
+# Secrets
+/deploy/terraform/.terraform
 /deploy/terraform/terraform.tfvars
 /deploy/terraform/variable.tf
 /deploy/terraform/id_rsa.pub
-/deploy/terraform/.terraform
-
-# Concourse secrets
-/keys
-/secrets.env
+/deploy/terraform/secrets.env

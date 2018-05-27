@@ -25,9 +25,6 @@ execute "generate concourse container ssh keys" do
 end
 
 # Docker container initialisation
-docker_compose_application 'app' do
-  action :up
-  compose_files ['/var/deployment/docker-compose.yaml']
-  remove_orphans true
-  ignore_failure true
+execute "initialise the docker composition" do
+  command "docker-compose --file /var/deployment/docker-compose.yml up"
 end

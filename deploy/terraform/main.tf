@@ -52,6 +52,7 @@ data "template_file" "cloud_init" {
 
   vars {
     source = "${var.source}"
+    secrets = "${file("${path.module}/secrets.env")}"
   }
 }
 

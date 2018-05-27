@@ -13,10 +13,10 @@ This is basically a combination of the official [Concourse docker repo](https://
 * Terragrunt
 
 #### Update/Create the following files (samples provided):
-* `/secrets.env` (Concourse credentials and hostname)
 * `/deploy/terraform/variable.tf` (DigitalOcean token, etc)
 * `/deploy/terraform/terraform.tfvars` (Infrastructure current state locking)
 * `/deploy/terraform/id_rsa.pub` (Public SSH key to connect to droplet)
+* `/deploy/terraform/secrets.env` (Concourse docker compose secrets) (This will be copied on the droplet)
 
 #### Run:
 1. `terragrunt apply`

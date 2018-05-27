@@ -18,6 +18,7 @@ write_files:
       fi
 
       cd /var/deployment
+      echo ${secrets} > secrets.env # Copy the composition secrets to the droplet
       git rev-parse --is-inside-work-tree || git clone ${source} .
 
       cd deploy/chef

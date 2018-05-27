@@ -4,11 +4,11 @@ services:
   concourse-db:
     image: postgres
     volumes:
-    - /mnt/persist/pg-data:/var/lib/postgresql/data
-    env_file:
-    - secrets.env
+    - /mnt/persist/pg-data:/database
     environment:
     - PGDATA=/database
+    env_file:
+    - secrets.env
 
   concourse-web:
     image: concourse/concourse
@@ -17,15 +17,17 @@ services:
     depends_on: [concourse-db]
     ports: ["80:80"]
     volumes: ["./keys/web:/concourse-keys"]
-    env_file:
-    - secrets.env
     environment:
     - CONCOURSE_POSTGRES_HOST=concourse-db
+    - CONCOURSE_BIND_PORT=80
+    env_file:
+    - secrets.env
 
   concourse-worker:
     image: concourse/concourse
     command: worker
     privileged: true
+    restart: always # Workers sometimes die w/ btr fs mount errors ¯\_(ツ)_/¯
     links: [concourse-web]
     depends_on: [concourse-web]
     volumes: ["./keys/worker:/concourse-keys"]
