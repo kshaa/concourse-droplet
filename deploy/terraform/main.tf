@@ -52,7 +52,9 @@ data "template_file" "cloud_init" {
 
   vars {
     source = "${var.source}"
-    secrets = "${file("${path.module}/secrets.env")}"
+    // This indenting the whole file with six spaces to validate the
+    // cloud init yaml syntax (specific indentation necessary)
+    secrets = "${replace(file("${path.module}/secrets.env"), "/(?m)^/", "      ")}"
   }
 }
 
@@ -60,4 +62,3 @@ data "template_file" "cloud_init" {
 output "droplet_ip" {
   value = "${digitalocean_floating_ip.concourse_droplet_ip.ip_address}"
 }
-

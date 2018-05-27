@@ -2,11 +2,11 @@
 
 write_files:
   - path: /root/init-vm
-    permissions : '0755'
+    permissions: '0755'
     content: |
       #!/usr/bin/env bash
 
-      # FYI - That #cloud-config is required for DigitalOcean
+      # FYI - That #cloud-config above is required for DigitalOcean
       # It also accepts bash scripts or something
 
       set -eux
@@ -18,11 +18,15 @@ write_files:
       fi
 
       cd /var/deployment
-      echo ${secrets} > secrets.env # Copy the composition secrets to the droplet
       git rev-parse --is-inside-work-tree || git clone ${source} .
+      cp /tmp/deployment/secrets.env /var/deployment/secrets.env
 
       cd deploy/chef
       HOME=/root ./init
+  - path: /tmp/deployment/secrets.env
+    permissions: '0755'
+    content: |
+${secrets}
 
 runcmd:
   - /root/init-vm

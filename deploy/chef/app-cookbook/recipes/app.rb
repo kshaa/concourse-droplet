@@ -20,11 +20,7 @@ ruby 'load up images' do
 end
 
 # Concourse specific ssh key generation for container connections
-execute "generate concourse container ssh keys" do
-  command "sh /var/deployment/generate-keys.sh"
-end
-
 # Docker container initialisation
 execute "initialise the docker composition" do
-  command "docker-compose --file /var/deployment/docker-compose.yml up"
+  command "sh /var/deployment/generate-keys.sh; docker-compose --file /var/deployment/docker-compose.yml up -d"
 end
