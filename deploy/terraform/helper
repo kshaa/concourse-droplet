@@ -61,7 +61,7 @@ ping() {
 # No arguments handle
 if [[ $# -eq 0 ]]
 then
-    echo 'some message'
+    help
     exit 0
 fi
 
