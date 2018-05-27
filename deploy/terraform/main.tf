@@ -15,7 +15,7 @@ resource "digitalocean_droplet" "concourse_droplet" {
   name   = "concourse-london"
   region = "${var.region}"
   size   = "${var.droplet_size}"
-  ssh_keys = ["${digitalocean_ssh_key.kshaa_access_key.fingerprint}"]
+  ssh_keys = ["${digitalocean_ssh_key.access_key.fingerprint}"]
 
   user_data = "${data.template_file.cloud_init.rendered}"
   volume_ids = ["${digitalocean_volume.concourse_volume.id}"]
@@ -35,8 +35,8 @@ resource "digitalocean_volume" "concourse_volume" {
 }
 
 # Access key
-resource "digitalocean_ssh_key" "kshaa_access_key" {
-  name       = "Official Kshaa key"
+resource "digitalocean_ssh_key" "access_key" {
+  name       = "SSH Access key"
   public_key = "${file("${path.module}/id_rsa.pub")}"
 }
 
