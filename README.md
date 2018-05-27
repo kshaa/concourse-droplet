@@ -1,7 +1,6 @@
 # Concourse on DigitalOcean
 
 # Not finished, read Todo below
-
 Infrastructure, deployment and [Docker](https://www.docker.com/) to host [Concourse](https://concourse-ci.org/) in a [DigitalOcean](https://www.digitalocean.com/) droplet.
 
 This is basically a combination of the official [Concourse docker repo](https://github.com/concourse/concourse-docker/) and deployment code from [siers](https://github.com/siers) folkdance repo.
@@ -12,7 +11,7 @@ This is basically a combination of the official [Concourse docker repo](https://
 * Terraform
 * Terragrunt
 
-#### Update/Create the following files (samples provided):
+#### Update/Create the following files: (samples provided in the same paths)
 * `/deploy/terraform/variable.tf` (DigitalOcean token, etc)
 * `/deploy/terraform/terraform.tfvars` (Infrastructure current state locking)
 * `/deploy/terraform/id_rsa.pub` (Public SSH key to connect to droplet)
@@ -32,7 +31,7 @@ Concourse server, read some [Concourse documentations](http://concoursetutorial.
 #### Kill: (This will destroy all data)
 1. `terragrunt destroy`
 
-#### Hibernate: (This will destroy all but persistent storage)
+#### Hibernate: (This will destroy all infrastructure but leave persistent storage)
 1. `./helper.sh hibernate`
 2. Hope it works
 3. If it didn't work, read helper.sh and fix it
@@ -42,15 +41,15 @@ Concourse server, read some [Concourse documentations](http://concoursetutorial.
 Note: _Hope is your friend in this repo_
 
 # Deployment flow
-## Infrastructure
+## Infrastructure (~$6/mo)
 DigitalOcean infrastructure provisioned by [Terraform](https://www.terraform.io/) `/deploy/terraform`
 
 Infrastructure state locked by [Terragrunt](https://github.com/gruntwork-io/terragrunt)
 
 Includes:
-* Droplet (host) (cheapest there is)
-* Floating IP (static IP)
-* Persistent storage (Concourse storage, in case we want to destroy the infrastructure, but hold the data)
+* Droplet (host) (cheapest there is $5/mo)
+* Floating IP (static IP, $0 as long as assigned to droplet)
+* Persistent storage (Concourse storage, in case we want to destroy the infrastructure, but hold the data, $0.10/gb/mo)
 * SSH keys (to connect to the host if necessary for some reason)
 * [Cloud init](https://cloud-init.io/) scripts (to automatically deploy concourse when infrastructure is initialised) `/deploy/terraform/init-cloud`
 
@@ -68,7 +67,9 @@ This is slightly verbose, because I didn't understand the chef part, so I'm docu
 
 # Todo
 * Set up a domain for the droplet
-* Set up a way for the `secrets.env` to end up in the droplet
 * Fix sometimes `generate-keys.sh` needs re-running
 * Set up the Concourse Postgresql container to use the persistent volume
 * Move docker-ce from 'test' version to 'stable', when it's released in `/deploy/chef/app-cookbook/recipes/docker.rb`
+
+# Something's broken, aaaaa!
+Write a detailed issue in GitHub issues and hope for a response

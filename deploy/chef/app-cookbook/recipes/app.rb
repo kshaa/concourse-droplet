@@ -22,5 +22,5 @@ end
 # Concourse specific ssh key generation for container connections
 # Docker container initialisation
 execute "initialise the docker composition" do
-  command "sh /var/deployment/generate-keys.sh; docker-compose --file /var/deployment/docker-compose.yml up -d"
+  command "/var/deployment/generate-keys; docker-compose --file /var/deployment/docker-compose.yml up -d"
 end

@@ -1,6 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
+set -eux
 
-set -e -u -x
+# Generate keys in the directory where the script is
+RELATIVE_SCRIPT_DIR=$( dirname "${BASH_SOURCE[0]}" )
+ABSOLUTE_SCRIPT_DIR=$( cd ${RELATIVE_SCRIPT_DIR} && pwd )
+cd ${ABSOLUTE_SCRIPT_DIR}
 
 mkdir -p keys/web keys/worker
 
