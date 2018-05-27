@@ -46,14 +46,24 @@ resource "digitalocean_floating_ip" "concourse_droplet_ip" {
   region     = "${digitalocean_droplet.concourse_droplet.region}"
 }
 
+# Domain setup
+resource "digitalocean_domain" "concourse_droplet_domain" {
+  // Terraform has a weird way to handle conditional resources - count
+  count = "${var.domain_exists}"
+
+  name = "${var.domain_name}"
+  ip_address = "${digitalocean_floating_ip.concourse_droplet_ip.ip_address}"
+}
+
 # Initialisation script
 data "template_file" "cloud_init" {
   template = "${file("${path.module}/init-cloud/cloud-init-chef-bootstrap.yaml")}"
 
   vars {
     source = "${var.source}"
-    // This indenting the whole file with six spaces to validate the
-    // cloud init yaml syntax (specific indentation necessary)
+    // This injects the secrets.env file with indentation of six spaces, because
+    // in the cloud init, the yaml syntax there requires an indentation
+    // see ./init-cloud/cloud-init-chef-bootstrap.yaml :: ${secrets}
     secrets = "${replace(file("${path.module}/secrets.env"), "/(?m)^/", "      ")}"
   }
 }

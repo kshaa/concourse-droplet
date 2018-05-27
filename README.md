@@ -3,7 +3,7 @@
 # Not finished, read Todo below
 Infrastructure, deployment and [Docker](https://www.docker.com/) to host [Concourse](https://concourse-ci.org/) in a [DigitalOcean](https://www.digitalocean.com/) droplet.
 
-This is basically a combination of the official [Concourse docker repo](https://github.com/concourse/concourse-docker/) and deployment code from [siers](https://github.com/siers) folkdance repo.
+This is heavily inspired from the official [Concourse docker repo](https://github.com/concourse/concourse-docker/) and deployment code from [siers](https://github.com/siers) folkdance repo.
 
 # Quick-start 
 #### Configure the following:
@@ -67,9 +67,9 @@ This is slightly verbose, because I didn't understand the chef part, so I'm docu
 
 # Todo
 * Set up a domain for the droplet
-* Fix sometimes `generate-keys.sh` needs re-running
 * Set up the Concourse Postgresql container to use the persistent volume
-* Move docker-ce from 'test' version to 'stable', when it's released in `/deploy/chef/app-cookbook/recipes/docker.rb`
+* Move docker-ce from 'test' version to 'stable', when it's released in `/deploy/chef/app-cookbook/recipes/docker.rb` (low priority)
+* Document how I set up a domain (low priority)
 
 # Something's broken, aaaaa!
 Write a detailed issue in GitHub issues and hope for a response

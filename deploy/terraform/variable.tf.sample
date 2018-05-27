@@ -11,4 +11,11 @@ variable "droplet_size" { default = "s-1vcpu-1gb" }
 variable "volume_size" { default = 10 }
 
 // Concourse source repo
-variable "source" { default = "https://github.com/kshaa/concourse-droplet" }
+variable "source" { default = "https://github.com/kshaa/concourse-droplet" } # Change this if you made your own fork
+
+// Concourse droplet domain setup
+variable "domain_exists" { default = 0 } // no domain set up sample
+variable "domain_name" { default = "" }
+
+// variable "domain_exists" { default = 1 } // domain set up sample
+// variable "domain_name" { default = "example.com" }
